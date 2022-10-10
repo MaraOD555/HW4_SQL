@@ -3,6 +3,8 @@ package ru.hogwarts.school.HW4_SQL.model;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import java.util.Collection;
 import java.util.Objects;
 
 @Entity
@@ -13,11 +15,12 @@ public class Faculty {
     private String name;
     private String color;
 
-  /*  public Faculty(long id, String name, String color) {
-        this.id = id;
-        this.name = name;
-        this.color = color;
-    } */
+    @OneToMany(mappedBy = "faculty")
+    private Collection<Student> students;
+
+    public Collection<Student> getStudents() {
+        return students;
+    }
 
     public long getId() {
         return id;

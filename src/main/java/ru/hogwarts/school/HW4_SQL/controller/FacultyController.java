@@ -4,6 +4,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.hogwarts.school.HW4_SQL.model.Faculty;
+import ru.hogwarts.school.HW4_SQL.model.Student;
 import ru.hogwarts.school.HW4_SQL.service.FacultyService;
 
 import java.util.Collection;
@@ -41,11 +42,27 @@ public class FacultyController {
         facultyService.deleteFaculty(id);
         return ResponseEntity.ok().build();
     }
-    @GetMapping
+    @GetMapping(value = "color")
     public ResponseEntity<Collection<Faculty>> findFacultyByColor (@RequestParam (required = false) String color){ // задаем цвет и ицем все факультеты по этому цвету
         if(color != null && !color.isBlank()){
             return ResponseEntity.ok(facultyService.findFacultyByColor(color));
         }
         return ResponseEntity.notFound().build();// не найдено
     }
+    @GetMapping
+    public ResponseEntity<Collection<Faculty>> findByNameOrColorIgnoreCase(@RequestParam (required = false) String name,
+                                                                             @RequestParam (required = false) String color){
+        if(name != null && !name.isBlank()){
+            return ResponseEntity.ok(facultyService.findByNameIgnoreCase(name));
+        }
+        if(color != null && !color.isBlank()){
+            return ResponseEntity.ok(facultyService.findByColorIgnoreCase(color));
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+    }
+   /* @GetMapping(value = "student")
+    public ResponseEntity<Faculty> findFacultyByStudents (@RequestBody Student student){
+        return ResponseEntity.ok(facultyService.findFacultyByStudents(student));
+    }*/
+
 }
