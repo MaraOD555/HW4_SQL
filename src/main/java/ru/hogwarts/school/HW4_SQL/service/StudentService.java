@@ -33,8 +33,8 @@ public class StudentService {
     public Collection<Student> findByAgeBetween(int from, int to) {
         return studentRepository.findByAgeBetween(from, to);
     }
-    public Faculty getFacultyByStudentId(long id){
-       return studentRepository.getFacultyByStudentId(id);
-    }
+    public Faculty findFaculty(long id) {
+    return studentRepository.findFaculty(id);
+  }
 }
 

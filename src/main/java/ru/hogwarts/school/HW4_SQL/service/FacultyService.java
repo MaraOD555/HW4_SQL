@@ -43,7 +43,7 @@ public class FacultyService {
     public Collection<Faculty> findByColorIgnoreCase(String color) {
         return facultyRepository.findByColorIgnoreCase(color);
     }
-     /*  public Faculty findFacultyByStudents(Student student) {
-        return facultyRepository.findFacultyByStudents(student);
-    }*/
+    public Collection<Student> findStudent(long id) {
+        return facultyRepository.findStudent(id);
+  }
 }

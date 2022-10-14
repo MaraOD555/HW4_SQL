@@ -55,12 +55,12 @@ public class StudentController {
                                                                  @RequestParam int to){// задаем промежуток и ищем студентов
         return ResponseEntity.ok(studentService.findByAgeBetween(from, to));
     }
-   // @GetMapping(value = "id")
-  //  public ResponseEntity<Collection<Student>> findStudentsByFacultyId (@RequestParam long id){
-     //   return ResponseEntity.ok(studentService.findStudentsByFacultyId(id));
-      //   }
-    @GetMapping(value = "id")
-    public ResponseEntity<Faculty> getFacultyByStudentId(@RequestParam long id){
-        return ResponseEntity.ok(studentService.getFacultyByStudentId(id));
+    @GetMapping("/{id}/faculty")
+    public ResponseEntity<Faculty> findStudentFaculty(@PathVariable Long id) {
+        Faculty faculty = studentService.findFaculty(id);
+        if (faculty == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(faculty);
     }
 }

@@ -60,9 +60,8 @@ public class FacultyController {
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
     }
-   /* @GetMapping(value = "student")
-    public ResponseEntity<Faculty> findFacultyByStudents (@RequestBody Student student){
-        return ResponseEntity.ok(facultyService.findFacultyByStudents(student));
-    }*/
-
+     @GetMapping("{id}/students")
+    public ResponseEntity<Collection<Student>> findStudent(@PathVariable Long id) {
+        return ResponseEntity.ok(facultyService.findStudent(id));
+    }
 }
