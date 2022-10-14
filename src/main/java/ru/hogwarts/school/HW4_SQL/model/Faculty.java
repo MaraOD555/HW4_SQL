@@ -3,6 +3,8 @@ package ru.hogwarts.school.HW4_SQL.model;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import java.util.Collection;
 import java.util.Objects;
 
 @Entity
@@ -13,13 +15,21 @@ public class Faculty {
     private String name;
     private String color;
 
-  /*  public Faculty(long id, String name, String color) {
+    @OneToMany(mappedBy = "faculty")
+    private Collection<Student> students;
+
+    public Faculty(long id, String name, String color, Collection<Student> students) {
         this.id = id;
         this.name = name;
         this.color = color;
-    } */
+        this.students = students;
+    }
 
-    public long getId() {
+    public Faculty() {
+
+    }
+
+     public long getId() {
         return id;
     }
 
@@ -45,23 +55,27 @@ public class Faculty {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Faculty)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Faculty faculty = (Faculty) o;
-        return getId() == faculty.getId() && getName().equals(faculty.getName()) && getColor().equals(faculty.getColor());
+        return Objects.equals(id, faculty.id) && Objects.equals(name, faculty.name) && Objects.equals(color, faculty.color);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getName(), getColor());
+        return Objects.hash(id, name, color);
     }
 
     @Override
     public String toString() {
         return "Faculty{" +
                 "id=" + id +
-                ", название:'" + name + '\'' +
-                ", цвет:'" + color + '\'' +
+                ", name='" + name + '\'' +
+                ", color='" + color + '\'' +
                 '}';
     }
 }
